@@ -1,0 +1,11 @@
+# requirements for Task 3: Handwritten Character Recognition
+# run: pip install -r requirements.txt
+# tensorflow is big (like 500MB big). go make a sandwich while it downloads.
+
+tensorflow>=2.10.0
+numpy>=1.23.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+# optional: for EMNIST letters support
+# tensorflow-datasets>=4.9.0
