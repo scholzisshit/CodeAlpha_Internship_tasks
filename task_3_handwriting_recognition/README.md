@@ -1,4 +1,4 @@
-# ✍️ Task 3: Handwritten Character Recognition  
+#  Task 3: Handwritten Character Recognition  
 ### *"Teaching pixels to have meaning since MNIST dropped in 1998"*
 
 ---

@@ -15,7 +15,7 @@
 #
 # NOTE: If you don't have the dataset, we generate dummy data.
 # It won't learn anything useful, but it'll run and that's what matters
-# for submission right? 😂 (jk actually download the dataset)
+# for submission right?  (jk actually download the dataset)
 # ============================================================
 
 import os
@@ -31,10 +31,10 @@ try:
     import librosa
     import librosa.display
     LIBROSA_AVAILABLE = True
-    print("✅ librosa found! We're cooking.")
+    print(" librosa found! We're cooking.")
 except ImportError:
     LIBROSA_AVAILABLE = False
-    print("❌ librosa not installed! Run: pip install librosa")
+    print(" librosa not installed! Run: pip install librosa")
     print("   (or just pip install -r requirements.txt you absolute legend)")
 
 # tensorflow - the big boy library
@@ -50,10 +50,10 @@ try:
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelEncoder
     from sklearn.metrics import confusion_matrix, classification_report
-    print("✅ TensorFlow version:", tf.__version__)
+    print(" TensorFlow version:", tf.__version__)
     print("   (if it's below 2.0, we're gonna have a bad time)")
 except ImportError:
-    print("❌ TensorFlow not found! Run: pip install tensorflow")
+    print(" TensorFlow not found! Run: pip install tensorflow")
     raise
 
 
@@ -80,7 +80,7 @@ EMOTION_MAP = {
 # (calm and surprised are kinda mid emotions anyway)
 TARGET_EMOTIONS = ["neutral", "happy", "sad", "angry", "fearful", "disgust"]
 
-print(f"\n🎭 Targeting {len(TARGET_EMOTIONS)} emotions: {TARGET_EMOTIONS}")
+print(f"\n Targeting {len(TARGET_EMOTIONS)} emotions: {TARGET_EMOTIONS}")
 
 
 # ============================================================
@@ -138,13 +138,13 @@ def load_ravdess_data(data_folder="Audio_Speech_Actors_01-24"):
     Expects folder structure: Actor_XX/03-01-XX-XX-XX-XX-XX.wav
     """
     
-    print(f"\n📂 Looking for RAVDESS data in: {data_folder}/")
+    print(f"\n Looking for RAVDESS data in: {data_folder}/")
     
     X = []
     y = []
     
     if not os.path.exists(data_folder):
-        print(f"   ⚠️  Folder not found! Generating dummy data instead...")
+        print(f"     Folder not found! Generating dummy data instead...")
         print(f"   (Please download RAVDESS from https://zenodo.org/record/1188976)\n")
         return None, None
     
@@ -180,8 +180,8 @@ def load_ravdess_data(data_folder="Audio_Speech_Actors_01-24"):
                 y.append(emotion)
                 found_files += 1
     
-    print(f"   ✅ Loaded {found_files} audio files")
-    print(f"   ⏭️  Skipped {skipped_files} files (wrong emotion category)")
+    print(f"    Loaded {found_files} audio files")
+    print(f"     Skipped {skipped_files} files (wrong emotion category)")
     
     return np.array(X), np.array(y)
 
@@ -190,7 +190,7 @@ def load_ravdess_data(data_folder="Audio_Speech_Actors_01-24"):
 X, y = load_ravdess_data()
 
 if X is None:
-    print("🎲 Generating dummy MFCC data for demonstration...")
+    print(" Generating dummy MFCC data for demonstration...")
     print("   Shape will be: (samples, 200, 40) - [batch, time_steps, mfcc_features]")
     print("   The model will train but won't learn anything useful with random data")
     print("   (story of my life honestly)\n")
@@ -223,7 +223,7 @@ le = LabelEncoder()
 y_encoded = le.fit_transform(y)
 n_classes = len(le.classes_)
 
-print(f"\n🏷️  Emotion classes ({n_classes} total):")
+print(f"\n  Emotion classes ({n_classes} total):")
 for idx, emotion in enumerate(le.classes_):
     count = (y_encoded == idx).sum()
     print(f"   {idx}: {emotion:12s} - {count} samples")
@@ -231,7 +231,7 @@ for idx, emotion in enumerate(le.classes_):
 # Convert to one-hot for categorical crossentropy
 y_onehot = to_categorical(y_encoded, n_classes)
 
-print(f"\n📐 Data shapes:")
+print(f"\n Data shapes:")
 print(f"   X shape: {X.shape}  (samples, time_steps, mfcc_features)")
 print(f"   y shape: {y_onehot.shape}  (samples, n_classes)")
 
@@ -248,7 +248,7 @@ X_val, X_test, y_val, y_test = train_test_split(
     X_temp, y_temp, test_size=0.50, random_state=42
 )
 
-print(f"\n✂️  Train: {len(X_train)} | Val: {len(X_val)} | Test: {len(X_test)}")
+print(f"\n  Train: {len(X_train)} | Val: {len(X_val)} | Test: {len(X_test)}")
 
 
 # ============================================================
@@ -313,7 +313,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-print("\n🏗️  Model Architecture:")
+print("\n  Model Architecture:")
 model.summary()
 
 total_params = model.count_params()
@@ -357,7 +357,7 @@ history = model.fit(
     verbose=1
 )
 
-print("\n✅ Training complete! Let's see how bad it is...")
+print("\n Training complete! Let's see how bad it is...")
 
 
 # ============================================================
@@ -369,22 +369,22 @@ print("EVALUATING...")
 print("="*60)
 
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
-print(f"\n🎯 Test Accuracy: {test_acc*100:.2f}%")
+print(f"\n Test Accuracy: {test_acc*100:.2f}%")
 print(f"   Test Loss: {test_loss:.4f}")
 
 if test_acc > 0.70:
-    print("   Not bad! That's above 70% - intern of the month material 💪")
+    print("   Not bad! That's above 70% - intern of the month material ")
 elif test_acc > 0.50:
     print("   Over 50%! Better than random guessing. We take those wins.")
 else:
-    print("   Under 50%... you're just generating random data aren't you 👀")
+    print("   Under 50%... you're just generating random data aren't you ")
 
 # Predictions
 y_pred_prob = model.predict(X_test, verbose=0)
 y_pred = np.argmax(y_pred_prob, axis=1)
 y_true = np.argmax(y_test, axis=1)
 
-print("\n📊 Classification Report:")
+print("\n Classification Report:")
 print(classification_report(y_true, y_pred, target_names=le.classes_))
 
 
@@ -392,7 +392,7 @@ print(classification_report(y_true, y_pred, target_names=le.classes_))
 # STEP 6: VISUALIZATIONS (the part that makes the report look good)
 # ============================================================
 
-print("\n📸 Generating plots...")
+print("\n Generating plots...")
 
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 fig.suptitle("Emotion Recognition from Speech - Model Results\n"
@@ -464,7 +464,7 @@ model.save("emotion_cnn_model.h5")
 print("   Saved: emotion_cnn_model.h5 (the trained brain)")
 
 print("\n" + "="*60)
-print("✅ TASK 2 COMPLETE!")
+print(" TASK 2 COMPLETE!")
 print("="*60)
 print("\nFun facts you learned today:")
 print("  → MFCCs convert audio to numbers that CNNs can understand")
@@ -472,4 +472,4 @@ print("  → Humans confuse neutral/calm too, so the model isn't dumb")
 print("  → 1D CNN > LSTM for this task (faster + often better)")
 print("  → EarlyStopping saves us from training for 10 hours")
 print("\nThis is legitimately cool tech. Siri uses this stuff.")
-print("Go brag on LinkedIn. You deserve it. 🎤")
+print("Go brag on LinkedIn. You deserve it. ")

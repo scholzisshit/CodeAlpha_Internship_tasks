@@ -1,4 +1,4 @@
-# 🤖 CodeAlpha ML Internship Tasks
+#  CodeAlpha ML Internship Tasks
 ### *"Three ML projects that'll make your resume actually interesting"*
 
 > Built for CodeAlpha Internship | Machine Learning Domain  
@@ -6,7 +6,7 @@
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 internship_tasks/
@@ -31,7 +31,7 @@ internship_tasks/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Task 1 - Credit Scoring (easiest, start here)
 ```bash
@@ -58,7 +58,7 @@ python handwriting_recognition.py   # downloads MNIST automatically!
 
 ---
 
-## 📊 What Each Task Covers
+##  What Each Task Covers
 
 | Task | Model | Dataset | Key Concepts |
 |------|-------|---------|-------------|
@@ -68,7 +68,7 @@ python handwriting_recognition.py   # downloads MNIST automatically!
 
 ---
 
-## 🛠️ Environment Setup (do this once)
+##  Environment Setup (do this once)
 
 ```bash
 # recommended: use a virtual environment
@@ -81,7 +81,7 @@ source venv/bin/activate      # mac/linux
 
 ---
 
-## 📈 Expected Results
+##  Expected Results
 
 | Task | Metric | Expected |
 |------|--------|----------|
@@ -91,7 +91,7 @@ source venv/bin/activate      # mac/linux
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 **"Module not found" errors?**  
 → Did you `pip install -r requirements.txt`? Do that first.
@@ -107,7 +107,7 @@ source venv/bin/activate      # mac/linux
 
 ---
 
-## 📝 Notes for Submission
+##  Notes for Submission
 - All scripts are heavily commented (because we care about readability apparently)
 - Each task produces output PNG files for screenshots
 - Models are saved as `.h5` files after training

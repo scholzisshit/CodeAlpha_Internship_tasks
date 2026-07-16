@@ -1,4 +1,4 @@
-# 🎤 Task 2: Emotion Recognition from Speech
+#  Task 2: Emotion Recognition from Speech
 ### *"Making a computer feel feelings (it can't, but we fake it)"*
 
 ---
@@ -19,9 +19,9 @@ pip install -r requirements.txt
 2. Download the `Audio_Speech_Actors_01-24.zip`
 3. Extract it in this folder → you should see `Audio_Speech_Actors_01-24/`
 
-> ⚠️ **No dataset?** The script still runs with random dummy data.  
+>  **No dataset?** The script still runs with random dummy data.  
 > It won't learn anything real, but it'll train and produce graphs.  
-> Technically it "works" for demo purposes. 🤫
+> Technically it "works" for demo purposes. 
 
 ### Step 3: Run
 ```bash

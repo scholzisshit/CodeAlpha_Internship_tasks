@@ -42,7 +42,7 @@ import os
 DATA_FILE = "credit_risk_dataset.csv"
 
 if not os.path.exists(DATA_FILE):
-    print("📁 Dataset not found. Generating synthetic data...")
+    print(" Dataset not found. Generating synthetic data...")
     print("(It's basically the same thing, trust me bro)")
     print()
 
@@ -77,9 +77,9 @@ if not os.path.exists(DATA_FILE):
     df_temp.loc[missing_idx2, "loan_int_rate"] = np.nan
 
     df_temp.to_csv(DATA_FILE, index=False)
-    print(f"✅ Generated {n} rows of beautiful fake data. You're welcome.\n")
+    print(f" Generated {n} rows of beautiful fake data. You're welcome.\n")
 else:
-    print(f"✅ Found the dataset! Nice, you actually downloaded it.\n")
+    print(f" Found the dataset! Nice, you actually downloaded it.\n")
 
 
 # ============================================================
@@ -92,7 +92,7 @@ print("=" * 60)
 
 df = pd.read_csv(DATA_FILE)
 
-print(f"\n📊 Dataset Shape: {df.shape}")
+print(f"\n Dataset Shape: {df.shape}")
 print(f"   Rows: {df.shape[0]} (that's {df.shape[0]} people whose credit we're judging)")
 print(f"   Columns: {df.shape[1]} features\n")
 
@@ -100,16 +100,16 @@ print("First 5 rows (just to pretend we're exploring):")
 print(df.head())
 print()
 
-print("📉 Missing Values (the annoying ones):")
+print(" Missing Values (the annoying ones):")
 missing = df.isnull().sum()
 missing = missing[missing > 0]
 if len(missing) > 0:
     print(missing)
 else:
-    print("   No missing values! Suspiciously clean data 👀")
+    print("   No missing values! Suspiciously clean data ")
 print()
 
-print("📈 Basic Stats (for people who like numbers I guess):")
+print(" Basic Stats (for people who like numbers I guess):")
 print(df.describe())
 print()
 
@@ -137,7 +137,7 @@ categorical_cols = df.select_dtypes(include=["object"]).columns.tolist()
 if "loan_status" in categorical_cols:
     categorical_cols.remove("loan_status")
 
-print(f"\n🔄 One-hot encoding these columns: {categorical_cols}")
+print(f"\n One-hot encoding these columns: {categorical_cols}")
 df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
 print(f"   After encoding: {df.shape[1]} columns (from {df.shape[1] - len(categorical_cols)} numeric + encoding explosion)")
 
@@ -146,7 +146,7 @@ print(f"   After encoding: {df.shape[1]} columns (from {df.shape[1] - len(catego
 X = df.drop("loan_status", axis=1)
 y = df["loan_status"]
 
-print(f"\n🎯 Target distribution:")
+print(f"\n Target distribution:")
 print(f"   Paid back (0): {(y == 0).sum()} ({(y == 0).mean()*100:.1f}%)")
 print(f"   Defaulted (1): {(y == 1).sum()} ({(y == 1).mean()*100:.1f}%)")
 print(f"   (Yeah it's imbalanced. Real world is messy. Deal with it.)\n")
@@ -161,7 +161,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X_scaled, y, test_size=0.2, random_state=42, stratify=y
 )
 
-print(f"✂️  Split: {len(X_train)} training | {len(X_test)} testing")
+print(f"  Split: {len(X_train)} training | {len(X_test)} testing")
 print(f"   (random_state=42 because everyone uses 42. It's basically a rule.)\n")
 
 
@@ -174,7 +174,7 @@ print("TRAINING MODELS... (please work please work please work)")
 print("=" * 60)
 
 # --- Random Forest (the reliable one, like that one friend who always shows up) ---
-print("\n🌲 Training Random Forest Classifier...")
+print("\n Training Random Forest Classifier...")
 rf_model = RandomForestClassifier(
     n_estimators=100,      # 100 trees because why not
     max_depth=10,          # not too deep, we don't want overfitting
@@ -182,13 +182,13 @@ rf_model = RandomForestClassifier(
     n_jobs=-1              # use all CPU cores bc we're impatient
 )
 rf_model.fit(X_train, y_train)
-print("   Random Forest: trained ✅")
+print("   Random Forest: trained ")
 
 # --- Logistic Regression (the simple one, but sometimes simple wins) ---
-print("\n📈 Training Logistic Regression...")
+print("\n Training Logistic Regression...")
 lr_model = LogisticRegression(max_iter=1000, random_state=42)
 lr_model.fit(X_train, y_train)
-print("   Logistic Regression: trained ✅\n")
+print("   Logistic Regression: trained \n")
 
 
 # ============================================================
@@ -196,7 +196,7 @@ print("   Logistic Regression: trained ✅\n")
 # ============================================================
 
 print("=" * 60)
-print("EVALUATING MODELS... crossing fingers 🤞")
+print("EVALUATING MODELS... crossing fingers ")
 print("=" * 60)
 
 models = {
@@ -208,14 +208,14 @@ results = {}
 
 for name, model in models.items():
     print(f"\n{'='*40}")
-    print(f"📊 {name} Results:")
+    print(f" {name} Results:")
     print('='*40)
 
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1]
 
     # Classification Report - Precision, Recall, F1 all in one go
-    print("\n🔍 Classification Report:")
+    print("\n Classification Report:")
     print(classification_report(y_test, y_pred, target_names=["Paid Back", "Defaulted"]))
 
     roc_auc = roc_auc_score(y_test, y_prob)
@@ -229,7 +229,7 @@ for name, model in models.items():
 # STEP 6: VISUALIZATIONS (making it look good for the report)
 # ============================================================
 
-print("\n📸 Generating plots... (this is the part we screenshot for LinkedIn)")
+print("\n Generating plots... (this is the part we screenshot for LinkedIn)")
 
 fig, axes = plt.subplots(2, 3, figsize=(18, 12))
 fig.suptitle("Credit Scoring Model Results\n(Yes I trained an AI. Yes I am now a data scientist apparently.)",
@@ -283,7 +283,7 @@ ax_dist = axes[1][2]
 target_counts = y.value_counts()
 wedges, texts, autotexts = ax_dist.pie(
     target_counts,
-    labels=["Paid Back 😇", "Defaulted 💸"],
+    labels=["Paid Back ", "Defaulted "],
     autopct="%1.1f%%",
     colors=["#2ecc71", "#e74c3c"],
     startangle=90,
@@ -298,11 +298,11 @@ print("   Saved: credit_scoring_results.png")
 plt.show()
 
 print("\n" + "="*60)
-print("✅ TASK 1 COMPLETE!")
+print(" TASK 1 COMPLETE!")
 print("="*60)
 print("\nKey Takeaways (for when your manager asks what you learned):")
 print("  → Random Forest usually beats Logistic Regression")
 print("  → Loan amount vs income ratio is super important")
 print("  → ROC-AUC > 0.8 = you're doing something right")
 print("  → Data cleaning is 80% of the job. Nobody tells you this.")
-print("\nGo flex this on LinkedIn now 🚀")
+print("\nGo flex this on LinkedIn now ")

@@ -1,4 +1,4 @@
-# 💳 Task 1: Credit Scoring Model
+#  Task 1: Credit Scoring Model
 ### *"Judging people's financial decisions so banks don't have to"*
 
 ---

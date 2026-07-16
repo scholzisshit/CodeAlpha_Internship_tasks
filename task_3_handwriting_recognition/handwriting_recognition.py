@@ -12,7 +12,7 @@
 # This is the most fun task imo. Watching the model look at
 # a squiggly "7" and going "yeah that's a 7" is genuinely cool.
 #
-# No dataset download needed! tensorflow.keras.datasets handles it 🙌
+# No dataset download needed! tensorflow.keras.datasets handles it 
 # ============================================================
 
 import numpy as np
@@ -34,7 +34,7 @@ print("=" * 60)
 print("HANDWRITTEN CHARACTER RECOGNITION")
 print("aka the project that made AI famous (kinda)")
 print("=" * 60)
-print(f"\n🔢 TensorFlow version: {tf.__version__}")
+print(f"\n TensorFlow version: {tf.__version__}")
 
 
 # ============================================================
@@ -55,7 +55,7 @@ print(f"LOADING DATA: {DATASET.upper()}")
 print("="*60)
 
 if DATASET == "mnist":
-    print("\n📥 Loading MNIST (handwritten digits 0-9)...")
+    print("\n Loading MNIST (handwritten digits 0-9)...")
     (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
     n_classes = 10
     class_names = [str(i) for i in range(10)]
@@ -64,7 +64,7 @@ if DATASET == "mnist":
     print(f"   (the OG dataset. probably the most famous dataset in ML history)")
 
 elif DATASET == "emnist":
-    print("\n📥 Loading EMNIST Letters (handwritten A-Z)...")
+    print("\n Loading EMNIST Letters (handwritten A-Z)...")
     # EMNIST needs to be flipped/transposed for correct orientation
     try:
         import tensorflow_datasets as tfds
@@ -76,9 +76,9 @@ elif DATASET == "emnist":
         y_test  -= 1
         n_classes   = 26
         class_names = [chr(ord('A') + i) for i in range(26)]
-        print(f"   ✅ EMNIST loaded via tensorflow_datasets")
+        print(f"    EMNIST loaded via tensorflow_datasets")
     except ImportError:
-        print("   ⚠️  tensorflow_datasets not installed. Falling back to MNIST.")
+        print("     tensorflow_datasets not installed. Falling back to MNIST.")
         print("   (pip install tensorflow-datasets if you want EMNIST)")
         (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
         n_classes   = 10
@@ -87,7 +87,7 @@ elif DATASET == "emnist":
 else:
     raise ValueError(f"Unknown dataset: {DATASET}. Use 'mnist' or 'emnist'")
 
-print(f"\n📊 Data shapes (before preprocessing):")
+print(f"\n Data shapes (before preprocessing):")
 print(f"   Train: {X_train.shape} | Test: {X_test.shape}")
 print(f"   Pixel value range: {X_train.min()} to {X_train.max()}")
 
@@ -106,7 +106,7 @@ print("="*60)
 X_train = X_train.reshape(-1, 28, 28, 1)
 X_test  = X_test.reshape(-1, 28, 28, 1)
 
-print(f"\n📐 Reshaped: {X_train.shape[1:]}")
+print(f"\n Reshaped: {X_train.shape[1:]}")
 print(f"   (28 height × 28 width × 1 channel = {28*28} pixels per image)")
 
 # Normalize pixel values: 0-255 → 0.0-1.0
@@ -115,18 +115,18 @@ print(f"   (28 height × 28 width × 1 channel = {28*28} pixels per image)")
 X_train = X_train.astype("float32") / 255.0
 X_test  = X_test.astype("float32")  / 255.0
 
-print(f"\n🔢 Pixel values normalized: {X_train.min():.1f} to {X_train.max():.1f}")
+print(f"\n Pixel values normalized: {X_train.min():.1f} to {X_train.max():.1f}")
 print(f"   (dividing by 255 - a classic move in computer vision)")
 
 # One-hot encode labels
 y_train_oh = to_categorical(y_train, n_classes)
 y_test_oh  = to_categorical(y_test,  n_classes)
 
-print(f"\n🏷️  Classes: {n_classes}")
+print(f"\n  Classes: {n_classes}")
 print(f"   One-hot shape: {y_train_oh.shape}")
 
 # Show class distribution
-print(f"\n📊 Class distribution (first 5 classes):")
+print(f"\n Class distribution (first 5 classes):")
 for i in range(min(5, n_classes)):
     count = (y_train == i).sum()
     bar   = "█" * (count // 300)
@@ -204,11 +204,11 @@ model.compile(
     metrics=['accuracy']
 )
 
-print("\n🏗️  Model Architecture:")
+print("\n  Model Architecture:")
 model.summary()
 
 params = model.count_params()
-print(f"\n   📊 Total trainable parameters: {params:,}")
+print(f"\n    Total trainable parameters: {params:,}")
 print(f"   (that's {params:,} weights the model adjusts during training)")
 print(f"   (your calculator has way less logic. this thing is smarter.)")
 
@@ -237,7 +237,7 @@ callbacks = [
     )
 ]
 
-print(f"\n⚙️  Training config:")
+print(f"\n  Training config:")
 print(f"   Epochs: up to {EPOCHS} (early stopping might kick in)")
 print(f"   Batch size: {BATCH}")
 print(f"   Optimizer: Adam")
@@ -252,7 +252,7 @@ history = model.fit(
     verbose=1
 )
 
-print("\n✅ Training done! Let's see what we got...")
+print("\n Training done! Let's see what we got...")
 
 
 # ============================================================
@@ -265,7 +265,7 @@ print("="*60)
 
 test_loss, test_acc = model.evaluate(X_test, y_test_oh, verbose=0)
 
-print(f"\n🎯 Results:")
+print(f"\n Results:")
 print(f"   Test Accuracy: {test_acc*100:.2f}%")
 print(f"   Test Loss:     {test_loss:.4f}")
 
@@ -282,7 +282,7 @@ else:
 y_pred_prob = model.predict(X_test, verbose=0)
 y_pred      = np.argmax(y_pred_prob, axis=1)
 
-print("\n📊 Classification Report:")
+print("\n Classification Report:")
 print(classification_report(y_test, y_pred, target_names=class_names))
 
 
@@ -290,7 +290,7 @@ print(classification_report(y_test, y_pred, target_names=class_names))
 # STEP 6: VISUALIZATIONS (screenshot worthy content ahead)
 # ============================================================
 
-print("\n📸 Generating plots...")
+print("\n Generating plots...")
 
 fig = plt.figure(figsize=(20, 16))
 fig.suptitle(f"CNN Handwritten Recognition - {DATASET.upper()} Dataset\n"
@@ -338,7 +338,7 @@ ax3.set_yticklabels(class_names)
 # aka the coolest part - showing actual predictions on images
 # ============================================================
 
-print("\n🖼️  Generating sample prediction images...")
+print("\n  Generating sample prediction images...")
 
 # pick 30 random test images (20 correct, 10 wrong if possible)
 correct_idx = np.where(y_pred == y_test)[0]
@@ -365,7 +365,7 @@ for i, idx in enumerate(sample_correct[:6]):
     pred_label  = class_names[y_pred[idx]]
     confidence  = y_pred_prob[idx][y_pred[idx]] * 100
     
-    ax.set_title(f"✅ True: {true_label}\nPred: {pred_label} ({confidence:.0f}%)",
+    ax.set_title(f" True: {true_label}\nPred: {pred_label} ({confidence:.0f}%)",
                  fontsize=7, color='darkgreen', fontweight='bold')
     ax.axis('off')
     for spine in ax.spines.values():
@@ -381,7 +381,7 @@ for i, idx in enumerate(sample_wrong[:6]):
     pred_label  = class_names[y_pred[idx]]
     confidence  = y_pred_prob[idx][y_pred[idx]] * 100
     
-    ax.set_title(f"❌ True: {true_label}\nPred: {pred_label} ({confidence:.0f}%)",
+    ax.set_title(f" True: {true_label}\nPred: {pred_label} ({confidence:.0f}%)",
                  fontsize=7, color='darkred', fontweight='bold')
     ax.axis('off')
     for spine in ax.spines.values():
@@ -389,9 +389,9 @@ for i, idx in enumerate(sample_wrong[:6]):
         spine.set_linewidth(3)
 
 # Labels for the rows
-fig.text(0.01, 0.33, "✅ CORRECT", va='center', fontsize=11,
+fig.text(0.01, 0.33, " CORRECT", va='center', fontsize=11,
          fontweight='bold', color='darkgreen', rotation=90)
-fig.text(0.01, 0.12, "❌ WRONG", va='center', fontsize=11,
+fig.text(0.01, 0.12, " WRONG", va='center', fontsize=11,
          fontweight='bold', color='darkred', rotation=90)
 
 plt.tight_layout(rect=[0.03, 0, 1, 0.96])
@@ -439,20 +439,20 @@ print(f"\n{'='*60}")
 print("BONUS: TESTING RANDOM IMAGES (because it's fun)")
 print("="*60)
 
-print("\n🎲 Let's test 5 random images:")
+print("\n Let's test 5 random images:")
 test_indices = np.random.choice(len(X_test), 5, replace=False)
 
 for i, idx in enumerate(test_indices):
     true_label = class_names[y_test[idx]]
     pred_label = class_names[y_pred[idx]]
     confidence = y_pred_prob[idx][y_pred[idx]] * 100
-    result_emoji = "✅" if true_label == pred_label else "❌"
+    result_emoji = "" if true_label == pred_label else ""
     
     print(f"   Image {i+1}: True={true_label} | Predicted={pred_label} | "
           f"Confidence={confidence:.1f}% {result_emoji}")
 
 print("\n" + "="*60)
-print("✅ TASK 3 COMPLETE!")
+print(" TASK 3 COMPLETE!")
 print("="*60)
 print("\nWhat just happened:")
 print("  → Downloaded MNIST with one line of code (legend)")
@@ -461,4 +461,4 @@ print("  → Built a CNN that stacks Conv2D + MaxPooling2D layers")
 print("  → Got 99%+ accuracy on a dataset with 10,000 test images")
 print("  → This is literally what self-driving cars use (scaled up)")
 print("\nSame architecture powers Google Photos face detection btw.")
-print("You're basically an AI engineer now. Update your LinkedIn. 🎓")
+print("You're basically an AI engineer now. Update your LinkedIn. ")
