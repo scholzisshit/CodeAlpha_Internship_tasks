@@ -115,5 +115,5 @@ source venv/bin/activate      # mac/linux
 
 ---
 
-*CodeAlpha Internship | Machine Learning | 2024*  
+*CodeAlpha Internship | Machine Learning | 2026*  
 *"Machine learning is just statistics in a trenchcoat" - some professor probably*
